@@ -44,9 +44,9 @@ public class TiappsflyerModule extends KrollModule {
 	// Methods
 	private void importProperties() {
 		appProperties = TiApplication.getInstance().getAppProperties();
-		this.appId = appProperties.getString("APPID", "");
-		this.appUserId = appProperties.getString("APPUSERID", "");
-		this.devKey = appProperties.getString("DEVKEY", "");
+		this.appId = appProperties.getString("APPSFLYER_APPID", "");
+		this.appUserId = appProperties.getString("APPSFLYER_APPUSERID", "");
+		this.devKey = appProperties.getString("APPSFLYER_DEVKEY", "");
 		if (appId.equals(""))
 			Log.e(LCAT, "Don't forget appID");
 

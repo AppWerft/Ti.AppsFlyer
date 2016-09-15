@@ -10,13 +10,16 @@ AppsFlyer is the market leader in mobile advertising attribution & analytics, he
 
 ##Usage
 
+In tiapp.xml you need three entries:
 ```xml
-
+<property name="APPSFLYER_APPID" type="string">dp</property>
+<property name="APPSFLYER_APPUSERID" type="string">dp</property>
+<property name="APPSFLYER_DEVKEY" type="string">dp</property>
 ```
 
 ```javascript
 var AppsFlyer = require();
-AppsFlyer.trackAppLaunch  ();
+AppsFlyer.trackAppLaunch();
 
 AppsFlyer.trackAction("actionName",{
 key : value
