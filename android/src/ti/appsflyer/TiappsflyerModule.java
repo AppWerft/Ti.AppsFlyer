@@ -26,7 +26,7 @@ public class TiappsflyerModule extends KrollModule {
 	String appId;
 	String appUserId;
 	String devKey;
-	AppsFlyerLib instance;
+	AppsFlyerLib appsFlyer;
 	TiApplication ctx = TiApplication.getInstance();
 
 	// You can define constants with @Kroll.constant, for example:
@@ -34,7 +34,7 @@ public class TiappsflyerModule extends KrollModule {
 
 	public TiappsflyerModule() {
 		super();
-		this.instance = AppsFlyerLib.getInstance();
+		this.appsFlyer = AppsFlyerLib.getInstance();
 	}
 
 	@Kroll.onAppCreate
@@ -56,24 +56,24 @@ public class TiappsflyerModule extends KrollModule {
 	@Kroll.method
 	public void startTracker() {
 		importProperties();
-		this.instance.setAppId(appId);
-		instance.setAppUserId(appUserId);
+		this.appsFlyer.setAppId(appId);
+		appsFlyer.setAppUserId(appUserId);
 	}
 
 	@Kroll.method
-	public void setInstallId(String installId) {
-
+	public void Init() {
+		this.trackAppLaunch();
 	}
 
 	@Kroll.method
 	public void trackAppLaunch() {
-		instance.trackAppLaunch(ctx, devKey); // TODO;
+		appsFlyer.trackAppLaunch(ctx, devKey); // TODO;
 	}
 
 	@Kroll.method
 	public void trackAction(String eventName, KrollDict dict) {
 		if (dict != null) {
-			instance.trackEvent(ctx, eventName, dict);
+			appsFlyer.trackEvent(ctx, eventName, dict);
 		}
 	}
 }

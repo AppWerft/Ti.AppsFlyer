@@ -2,4 +2,10 @@ LICENSE.txt
 README
 android/build
 assets
-ti.appsflyer-android-1.0.0.zip
+.settings
+example
+.classpath
+.gitignore
+.project
+LICENCE
+start.sh
