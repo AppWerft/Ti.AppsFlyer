@@ -16,9 +16,8 @@ In tiapp.xml you need three entries:
 <property name="APPSFLYER_APPID" type="string">dp</property>
 <property name="APPSFLYER_APPUSERID" type="string">dp</property>
 <property name="APPSFLYER_DEVKEY" type="string">dp</property>
-```xml
-
 ```
+
 
 ```javascript
 var AppsFlyer = require("ti.appsflyer");
