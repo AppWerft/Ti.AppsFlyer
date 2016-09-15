@@ -2,4 +2,4 @@
 
 This TitaniumModule supports AppsFlyer.
 
-<img src="http://imgur.com/MUQN5dC" width=100 />)
+<img src="http://i.imgur.com/MUQN5dC.png" width=100 />)
