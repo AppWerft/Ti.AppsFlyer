@@ -22,46 +22,82 @@ public class TiappsflyerModule extends KrollModule {
 
 	// Standard Debugging variables
 	private TiProperties appProperties;
-	private static final String LCAT = "AppsFlyer 🎏🎏🎏";
+	private static final String LCAT = "AppsFlyer >>>>>";
 	String appId;
+	String appUserId;
 	String devKey;
-	AppsFlyerLib appsFlyer;
+	AppsFlyerLib instance;
 	TiApplication ctx = TiApplication.getInstance();
-
-	// You can define constants with @Kroll.constant, for example:
-	// @Kroll.constant public static final String EXTERNAL_NAME = value;
 
 	public TiappsflyerModule() {
 		super();
-		this.appsFlyer = AppsFlyerLib.getInstance();
+		this.instance = AppsFlyerLib.getInstance();
+		Log.i(LCAT, "AppsFlyer module initiated");
 	}
 
 	@Kroll.onAppCreate
 	public static void onAppCreate(TiApplication app) {
-
+		Log.i(LCAT, "onAppCreate started");
 	}
 
 	// Methods
-	private void importProperties() {
-		appProperties = TiApplication.getInstance().getAppProperties();
-		this.appId = appProperties.getString("APPID", "");
-		this.devKey = appProperties.getString("DEVKEY", "");
-		if (appId.equals(""))
-			Log.e(LCAT, "Don't forget appID");
+	// private void importProperties(String appId, String devKey) {
+	// 	appProperties = TiApplication.getInstance().getAppProperties();
+	// 	this.appId = appId;
+	// 	this.devKey = devKey;
 
+//	 	Log.i(LCAT, "AppsFlyer App Id: " + this.appId);
+//	 	Log.i(LCAT, "AppsFlyer Dev Key: " + this.devKey);
+//		
+//	 	if (appId.equals(""))
+//	 	{
+//	 		Log.i(LCAT, "Don't forget appID");
+//	 	}
+//	 	if (devKey.equals(""))
+//	 	{
+//	 		Log.i(LCAT, "Don't forget devKey");
+//	 	}
+//	 }
+
+	@SuppressWarnings("deprecation")
+	@Kroll.method
+	public void startTracker(String appId, String devKey) {
+		// importProperties();
+		Log.i(LCAT, "AppsFlyer start tracker");
+
+		this.appId = appId;
+		this.devKey = devKey;
+
+		Log.i(LCAT, "AppsFlyer App Id: " + this.appId);
+		Log.i(LCAT, "AppsFlyer Dev Key: " + this.devKey);
+//		
+		instance.setAppId(appId);
+		
+		// To initialize the SDK
+		// your devKey is in your AppsFlyer account app settings
+		instance.startTracking(ctx, devKey);
+		
+		Log.i(LCAT, "AppsFlyer SDK initialized");
+		
 	}
 
 	@Kroll.method
-	public void startTracker() {
-		importProperties();
-		this.appsFlyer.setAppId(appId);
-		appsFlyer.trackAppLaunch(ctx, devKey);
+	public void setCustomerUserId(String customerId) {
+		instance.setCustomerUserId(customerId);
+		Log.i(LCAT, "AppsFlyer Customer Id set: " + customerId);
+	}
+
+	@Kroll.method
+	public void trackAppLaunch() {
+		instance.trackAppLaunch(ctx, devKey);
+		Log.i(LCAT, "AppsFlyer App Launch Tracked");
 	}
 
 	@Kroll.method
 	public void trackAction(String eventName, KrollDict dict) {
 		if (dict != null) {
-			appsFlyer.trackEvent(ctx, eventName, dict);
+			instance.trackEvent(ctx, eventName, dict);
+			Log.i(LCAT, "AppsFlyer Event tracked: Event: " + eventName + "data: " + dict.toString());
 		}
 	}
 }
