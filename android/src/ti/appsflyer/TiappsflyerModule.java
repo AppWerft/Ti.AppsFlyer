@@ -24,7 +24,6 @@ public class TiappsflyerModule extends KrollModule {
 	private TiProperties appProperties;
 	private static final String LCAT = "AppsFlyer 🎏🎏🎏";
 	String appId;
-	String appUserId;
 	String devKey;
 	AppsFlyerLib appsFlyer;
 	TiApplication ctx = TiApplication.getInstance();
@@ -44,30 +43,18 @@ public class TiappsflyerModule extends KrollModule {
 	// Methods
 	private void importProperties() {
 		appProperties = TiApplication.getInstance().getAppProperties();
-		this.appId = appProperties.getString("APPSFLYER_APPID", "");
-		this.appUserId = appProperties.getString("APPSFLYER_APPUSERID", "");
-		this.devKey = appProperties.getString("APPSFLYER_DEVKEY", "");
+		this.appId = appProperties.getString("APPID", "");
+		this.devKey = appProperties.getString("DEVKEY", "");
 		if (appId.equals(""))
 			Log.e(LCAT, "Don't forget appID");
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Kroll.method
 	public void startTracker() {
 		importProperties();
 		this.appsFlyer.setAppId(appId);
-		appsFlyer.setAppUserId(appUserId);
-	}
-
-	@Kroll.method
-	public void Init() {
-		this.trackAppLaunch();
-	}
-
-	@Kroll.method
-	public void trackAppLaunch() {
-		appsFlyer.trackAppLaunch(ctx, devKey); // TODO;
+		appsFlyer.trackAppLaunch(ctx, devKey);
 	}
 
 	@Kroll.method
