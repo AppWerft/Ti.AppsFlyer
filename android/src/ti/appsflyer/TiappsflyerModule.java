@@ -38,6 +38,7 @@ public class TiappsflyerModule extends KrollModule {
 
 	@Kroll.onAppCreate
 	public static void onAppCreate(TiApplication app) {
+
 	}
 
 	// Methods
